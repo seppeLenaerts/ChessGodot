@@ -1,0 +1,29 @@
+extends TileMapLayer
+class_name Board
+
+@export var pieces_tilemap : PiecesTileMap;
+var dragging : bool = false;
+var clicked_tile_location : Vector2i;
+var active_piece : Piece;
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+func _unhandled_input(event):
+	if (event is InputEventMouseButton):
+		var mouseEvent := event as InputEventMouseButton
+		if (mouseEvent.button_index == MOUSE_BUTTON_LEFT):
+			if (!dragging):
+				clicked_tile_location = mouse_pos_to_tile()
+				active_piece = pieces_tilemap.get_piece_by_location(clicked_tile_location)
+			else:
+				active_piece.location = mouse_pos_to_tile()
+				active_piece = null;
+				
+			dragging = mouseEvent.is_pressed()
+
+
+func mouse_pos_to_tile():
+	return local_to_map(get_global_mouse_position());
