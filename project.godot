@@ -11,13 +11,20 @@ config_version=5
 [application]
 
 config/name="ChessGodot"
+run/main_scene="uid://coig00rd164in"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=720
 
 [file_customization]
 
 folder_colors={
 "res://assets/": "green",
+"res://resources/": "blue",
 "res://scenes/": "red"
 }
 
