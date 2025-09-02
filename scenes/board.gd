@@ -11,11 +11,6 @@ var current_player : bool = Piece.WHITE
 var white_score : int = 0
 var black_score : int = 0
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
 func _unhandled_input(event):
 	if (event is InputEventMouseButton):
 		var mouseEvent := event as InputEventMouseButton

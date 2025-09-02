@@ -2,10 +2,6 @@ extends TileMapLayer
 
 @export var board : Board
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 func _process(_delta):
 	clear()
 	if (board.active_piece):

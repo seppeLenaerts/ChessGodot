@@ -7,6 +7,7 @@ var pieces : Array[Piece] = [];
 func _ready() -> void:
 	store_pieces_in_array()
 
+
 func get_piece_by_location(loc: Vector2i) -> Piece:
 	for piece : Piece in pieces:
 		if (piece.location == loc):
@@ -22,6 +23,7 @@ func _process(_delta):
 
 func draw_piece(piece: Piece):
 	set_cell(piece.location, piece.source, piece.atlas_coords)
+
 
 func store_pieces_in_array():
 	for i : Vector2i in get_used_cells():
