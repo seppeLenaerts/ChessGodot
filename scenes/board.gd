@@ -41,7 +41,8 @@ func mouse_pos_to_tile():
 
 func is_legal_move(piece : Piece) -> bool:
 	if (tile_occupied()):
-		capture_occupying_piece()
+		if capture_occupying_piece():
+			return true
 		return false
 	else:
 		return true
@@ -51,7 +52,10 @@ func tile_occupied() -> bool:
 	return pieces_tilemap.get_piece_by_location(mouse_pos_to_tile()) != null
 
 
-func capture_occupying_piece():
+func capture_occupying_piece() -> bool:
 	var captured_piece = pieces_tilemap.get_piece_by_location(mouse_pos_to_tile())
 	if (captured_piece.color != active_piece.color):
 		pieces_tilemap.capture_piece(captured_piece)
+		return true
+	else:
+		return false
