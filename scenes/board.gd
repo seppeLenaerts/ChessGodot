@@ -6,6 +6,8 @@ var dragging : bool = false;
 var clicked_tile_location : Vector2i;
 var active_piece : Piece;
 
+var current_player : bool = Piece.WHITE
+
 var white_score : int = 0
 var black_score : int = 0
 
@@ -25,12 +27,16 @@ func handle_mouse_click(mouseEvent : InputEventMouseButton):
 	if (!dragging):
 		clicked_tile_location = mouse_pos_to_tile()
 		active_piece = pieces_tilemap.get_piece_by_location(clicked_tile_location)
+		if (active_piece && active_piece.color != current_player):
+			active_piece = null
 	else:
-		if (is_legal_move(active_piece)):
-			active_piece.location = mouse_pos_to_tile()
-		else:
-			active_piece.location = clicked_tile_location
-		active_piece = null;
+		if (active_piece):
+			if (is_legal_move()):
+				active_piece.location = mouse_pos_to_tile()
+				current_player = !current_player
+			else:
+				active_piece.location = clicked_tile_location
+			active_piece = null;
 		
 	dragging = mouseEvent.is_pressed()
 
@@ -39,7 +45,7 @@ func mouse_pos_to_tile():
 	return local_to_map(get_global_mouse_position());
 
 
-func is_legal_move(piece : Piece) -> bool:
+func is_legal_move() -> bool:
 	if (tile_occupied()):
 		if capture_occupying_piece():
 			return true
