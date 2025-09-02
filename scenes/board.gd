@@ -27,6 +27,7 @@ func handle_mouse_click(mouseEvent : InputEventMouseButton):
 	else:
 		if (active_piece):
 			if (is_legal_move()):
+				capture_occupying_piece()
 				active_piece.location = mouse_pos_to_tile()
 				current_player = !current_player
 			else:
@@ -42,7 +43,7 @@ func mouse_pos_to_tile():
 
 func is_legal_move() -> bool:
 	if (tile_occupied()):
-		if capture_occupying_piece():
+		if piece_is_opposite_color():
 			return true
 		return false
 	else:
@@ -53,10 +54,14 @@ func tile_occupied() -> bool:
 	return pieces_tilemap.get_piece_by_location(mouse_pos_to_tile()) != null
 
 
-func capture_occupying_piece() -> bool:
-	var captured_piece = pieces_tilemap.get_piece_by_location(mouse_pos_to_tile())
+func piece_is_opposite_color() -> bool:
+	var captured_piece = pieces_tilemap.get_piece_by_location(mouse_pos_to_tile())	
 	if (captured_piece.color != active_piece.color):
-		pieces_tilemap.capture_piece(captured_piece)
 		return true
 	else:
 		return false
+
+func capture_occupying_piece() -> void:
+	var captured_piece = pieces_tilemap.get_piece_by_location(mouse_pos_to_tile())	
+	if (captured_piece && piece_is_opposite_color()):
+		pieces_tilemap.capture_piece(captured_piece)
