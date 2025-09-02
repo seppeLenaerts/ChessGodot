@@ -4,7 +4,7 @@ extends TileMapLayer
 
 func _process(_delta):
 	clear()
-	if (board.active_piece):
+	if (board.active_piece && board.is_legal_move()):
 		_draw_piece(board.active_piece, board.mouse_pos_to_tile())
 
 

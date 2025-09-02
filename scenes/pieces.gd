@@ -18,7 +18,8 @@ func get_piece_by_location(loc: Vector2i) -> Piece:
 func _process(_delta):
 	clear()
 	for p : Piece in pieces:
-		draw_piece(p)
+		if (p != board.active_piece):
+			draw_piece(p)
 
 
 func draw_piece(piece: Piece):
